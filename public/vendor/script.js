@@ -2,31 +2,47 @@ $('#add_teachers').show();
 $('#add_students').hide();
 $('#add_programs').hide();
 $('#add_course_subs').hide();
+
 $(document).ready(function(){
 
     /* Tables */
 
-    $('.table').DataTable();
+    $("#role").change(function(){
+      var role = $("#role").find(":selected").text();
+      
+      if(role == "Student"){
+           $("#disp_course").removeClass("dontshow"); 
+      }else{
+         $("#disp_course").addClass("dontshow"); 
+      }
+
+    });
+   
+//     $("#depts").change(function(){
+      
+//       // alert($("#depts").val());
+//       var deptid = $("#depts").val();
+//       $("#depts").find("option").each(function(){
+
+//          var $this = $(this);
+//          if($this.attr('id') == deptid){
+//             $this.attr('selected', 'selected');
+//             if($this.attr('id') != deptid){
+//                $this.removeAttr("selected");
+//             }
+//             return false;
+//          }
+//       });
+     
+//  });
+
+    $('.dtable').DataTable();
 
     /* account creation */
-    $("#disp_course").hide();
-     $("#user_role").change(function() {
-         
-         var value = $(this).val();
-         if(value == "teacher"){
-            $("#disp_course").hide();
-         }else if(value=="coordinator"){
-            $("#disp_course").hide();
-         }else if(value=="admin"){
-            $("#disp_course").hide();
-         }else{
-            $("#disp_course").show();
-         }
-         //alert("student clicked!s" + value);
-     });
+    
 
-
-    var quill = new Quill('#editor', {
+   
+   var quill = new Quill('#editor', {
         theme: 'snow'
       });
 
@@ -58,4 +74,9 @@ $(document).ready(function(){
          $('#add_course_subs').show();
       });
 
+      
+
+
+
 });
+

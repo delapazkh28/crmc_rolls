@@ -21,7 +21,7 @@
         <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-4 navbar-light">
             <a href="index.html" class="text-center text-light-gray mb-4">
 
-                <h1>Cebu Roosevelt Memorial College</h1>
+                <h1>CRMC</h1>
                 <!-- LOGO 
                 <img src="{{ asset('/images/logos/crmclogo.png') }}" class="rounded float-left" alt="...">-->
 
@@ -56,11 +56,12 @@
                 <div class="page-separator__text">or</div>
             </div> -->
 
-            <form action="/admin/dashboard" novalidate>
+            <form action="user" method="POST" novalidate>
+                @csrf 
                 <div class="form-group">
                     <!-- <label class="text-label" for="email_2">ID number:</label> -->
                     <div class="input-group input-group-merge">
-                        <input id="email_2" type="email" required="" class="form-control form-control-prepended" placeholder="ID number">
+                        <input id="email" type="text" required="" name="idnum" class="form-control form-control-prepended" placeholder="ID number">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <span class="far fa-envelope"></span>
@@ -71,7 +72,7 @@
                 <div class="form-group">
                     <!-- <label class="text-label" for="password_2">Password:</label> -->
                     <div class="input-group input-group-merge">
-                        <input id="password_2" type="password" required="" class="form-control form-control-prepended" placeholder="Password">
+                        <input id="password" name="password" type="password" required="" class="form-control form-control-prepended" placeholder="Password">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <span class="fa fa-key"></span>

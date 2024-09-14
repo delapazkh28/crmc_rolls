@@ -8,6 +8,19 @@
     <title>Dashboard</title>
 
 @include('header')
+
+<style>
+    .rotate {
+        -moz-transition: all .5s linear;
+        -webkit-transition: all .5s linear;
+        transition: all .5s linear;
+    }
+    .rotate.down {
+        -moz-transform:rotate(90deg);
+        -webkit-transform:rotate(90deg);
+        transform:rotate(90deg);
+    }
+    </style>
 </head>
 
 <body class="layout-default">
@@ -215,208 +228,269 @@
         <!-- Header Layout Content -->
         <div class="mdk-header-layout__content">
 
-            <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
+        <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
                 <div class="mdk-drawer-layout__content page">
 
 
-                    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+                <div class="container-fluid page__heading-container">
+                        <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+                            <div>
+                                <h1 class="m-lg-0">IT 1101 - Learn Vue JS > Modules</h1>
+                                <div class="d-inline-flex align-items-center">
+                                 <small class="text-muted ml-1 mr-1">GROUP 1</small>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                                    <strong>Module</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
 
                     <div class="container-fluid page__container">
-                       
-                         <h2 class="bold m-4 text-center p-4">Academic Year</h2> 
-                         @if(session('success'))
-                         <div class="alert alert-success" role="alert">
-                            <strong>Success! </strong> you have created a new Academic Year!
-                        </div>
-                         @endif
-                         
-                         <div class="container-fluid page__container">
                         <div class="row">
-                            <div class="col-lg">
-                                <div class="card">
-                                    <div class="card-header card-header-large bg-white d-flex align-items-center">
-                                        <h4 class="card-header__title flex m-0">Current Academic Year:</h4>
-                                        <div>
-                                            <span>2020-2021 1st Semester</span>
-                                        </div>
-                                    </div>
-                                    <div class="card-header card-header-tabs-basic nav" role="tablist">
-                                        <!-- <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">All</a> -->
-                                        
-                                    </div>
-                                    <div class="card-body tab-content">
-                                        <div class="tab-pane active show fade" id="activity_all">
-                                           
-                                        <table  id="acadyr" class="dtable" style="padding: 10px;">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">Academic year & Period</th>
-                                            <th scope="col">Created By</th>
-                                            <th scope="col">Status</th>
-                                            <th scrope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($acadyrs as $acadyr )
-                                            <tr>
-                                                <td>{{$acadyr['acad_year']}} - {{$acadyr['period']}}</td>
-                                                <td>John Doe</td>
-                                                <td>{{$acadyr['status']}}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#settings{{$acadyr['id']}}" data-backdrop="false">
-                                                        <i class="material-icons">settings</i>
-                                                    </button>
-                                                </td>
-                                                <div id="settings{{$acadyr['id']}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-standard-title" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modal-standard-title">Academic Year Details {{$acadyr['id']}}</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div> <!-- // END .modal-header -->
-                                                            <div class="modal-body">
-
-                                                            <div class=" card-header-tabs-basic nav" role="tablist">
-                                                                <a href="#edit_info" class="active" data-toggle="tab" role="tab" aria-controls="edit_info" aria-selected="true">Edit</a>
-                                                                <a href="#detail_info" data-toggle="tab" role="tab" aria-selected="false">Details</a>
-
-                                                            </div>
-                                                            <div class="card-body tab-content">
-                                                                <div class="tab-pane active show fade" id="edit_info">
-                                                                <form method="post" action="academicyear">
-                                                                @csrf
-                                                                <div class="form-row">
-                                                                        <div class="col-12 col-md-6 mb-3">
-                                                                            <label for="validationSample01">Academic year</label>
-                                                                            <input type="text" name="ed_acad_year" value="{{$acadyr['acad_year']}}" class="form-control" placeholder="Year"  required>
-                                                                        </div>
-                                                                        <div class="col-12 col-md-6 mb-3">
-                                                                            <input type="hidden" name="acad_id" value="{{$acadyr['id']}}">
-                                                                            <label for="validationSample01">Period</label>
-                                                                            <select id="select01" name="ed_period" data-toggle="select" class="form-control">
-                                                                                <option  value="{{$acadyr['period']}}">{{$acadyr['period']}}</option>
-                                                                                <option value="1ST Semester">1ST Semester</option>
-                                                                                <option value="2ND Semester">2ND Semester</option>
-                                                                                <option value="Summer">Summer</option>
-                                                                                <option value="1ST Trimester">1ST Trimester</option>
-                                                                                <option value="2ND Trimester">2ND Trimester</option>
-                                                                                <option value="3RD Trimester">3RD Trimester</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        
-                                                                    </div>
-
-                                                                        <div class="form-group">
-                                                                        <label for="subscribe">Set as Active Academic Year</label><br>
-                                                                            <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
-                                                                                <input checked="" type="checkbox" id="subscribe" class="custom-control-input">
-                                                                                <label class="custom-control-label" for="subscribe">Yes</label>
-                                                                            </div>
-                                                                            <label for="subscribe" class="mb-0">Yes</label>
-                                                                        </div>
-                                                                        
-
-
-                                                                </div>
-                                                                <div class="tab-pane fade" id="detail_info">
-
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">Created By:</p> 
-                                                                    <p><strong>John Doe</strong></p>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">Start Date:</p> 
-                                                                    <p><strong>June 24, 2020</strong></p>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">End Date:</p> 
-                                                                    <p><strong>August 17, 2020</strong></p>
-                                                                </div>
-                                                                
-
-
-                                                                </div>
-                                                            
-                                                            </div>
-                                                    
-                                                            </div> <!-- // END .modal-body -->
-                                                            <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                                </form>
-                                                            </div> <!-- // END .modal-footer -->
-                                                        </div> <!-- // END .modal-content -->
-                                                    </div> <!-- // END .modal-dialog -->
-                                                </div> <!-- // END .modal -->
-                                            </tr>
-                                            @endforeach
-                                
-                                        </tbody>
-                                        </table>
-
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg">
-                            <div class="card">
-                                    <div class="card-header card-header-large bg-white d-flex align-items-center">
-                                        <h4 class="card-header__title flex m-0">Create new Academic Year</h4>
-                                    </div>
-                                    <div class="card-header card-header-tabs-basic nav" role="tablist">
-                                        <!-- <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">All</a> -->
-                                        
-                                    </div>
-                                    <div class="card-body tab-content">
-                                        <div class="tab-pane active show fade" id="activity_all">
-                                           
-                                        <form method="post" action="academicyear">
-                                        @csrf
-                                        <div class="form-row">
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="validationSample01">Academic year</label>
-                                                    <input type="text" name="acad_year" class="form-control" placeholder="Year"  required>
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="validationSample01">Period</label>
-                                                    <select id="select01" name="period" data-toggle="select" class="form-control">
-                                                        <option selected="">SELECT PERIOD</option>
-                                                        <option value="1ST Semester">1ST Semester</option>
-                                                        <option value="2ND Semester">2ND Semester</option>
-                                                        <option value="Summer">Summer</option>
-                                                        <option value="1ST Trimester">1ST Trimester</option>
-                                                        <option value="2ND Trimester">2ND Trimester</option>
-                                                        <option value="3RD Trimester">3RD Trimester</option>
-                                                    </select>
-                                                </div>
-                                                
+                            <div class="col-md-8">
+                
+                                <!-- <div class="card">
+                                    <div class="card-header">
+                                        <div class="media align-items-center"> -->
+                                            <!-- <div class="media-left">
+                                                <img src="assets/images/256_luke-porter-261779-unsplash.jpg" alt="About Adrian" width="40" class="rounded-circle">
+                                            </div> -->
+                                            <!-- <div class="media-body">
+                                                <div class="card-title mb-0"><a href="student-profile.html" class="text-body"><strong>Adrian Demian</strong></a></div>
+                                                <p class="text-muted mb-0">Instructor</p>
                                             </div>
-                                            
-                                            <button type="submit" class="btn btn-primary float-right">Submit</button>
-                                         </form>
-
+                                            <div class="media-right">
+                                                <a href="" class="btn btn-facebook btn-sm"><i class="fab fa-facebook"></i></a>
+                                                <a href="" class="btn btn-twitter btn-sm"><i class="fab fa-twitter"></i></a>
+                                                <a href="" class="btn btn-light btn-sm"><i class="fab fa-github"></i></a>
+                                            </div>
                                         </div>
-                                        
                                     </div>
+                                    <div class="card-body">
+                                        Having over 12 years exp. Adrian is one of the lead UI designers in the industry Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, aut.
+                                    </div>
+                                </div> -->
+
+
+
+                                <div class="card">
+                                    <div class="card-header card-header-large bg-light d-flex align-items-center">
+                                    <div class="flex">
+                                            <h4 class="card-header__title"><a href="#"><div data-id="1" id="arrow1" class="fa fa-chevron-right rotate"></div></a> Chapter 2: Installation</h4>
+                                        </div>
+                                    </div>
+                                    <ul id="mod_items1" class="mylist list-group list-group-flush">
+                                        <li class="list-group-item">Cras justo odio</li>
+                                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                                        <li class="list-group-item">Vestibulum at eros</li>
+                                        </ul>
+                                </div> 
+
+                                <div class="card">
+                                <div class="card-header card-header-large bg-light d-flex align-items-center">
+                                        <div class="flex">
+                                            <h4 class="card-header__title"><a href="#"><div data-id="2" id="arrow2" class="fa fa-chevron-right rotate"></div></a> Chapter 1: Requirements</h4>
+                                        </div>
+                                    </div>
+                                        <ul id="mod_items2" class="mylist list-group list-group-flush">
+                                        <li class="list-group-item">Cras justo odio</li>
+                                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                                        <li class="list-group-item">Vestibulum at eros</li>
+                                        </ul>
+                                 </div>
+
+                            </div>
+                            
+
+                            <div class="col-md-4">
+
+                                <!-- Lessons -->
+                                <div class="card">
+                                    <div class="card-header card-header-large bg-light d-flex align-items-center">
+                                        <div class="flex">
+                                            <h4 class="card-header__title">1st Semester 2022-2023</h4>
+                                        </div>
+                                    </div>
+
+                                    <ul class="list-group list-group-fit">
+                                        <li class="list-group-item">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <div class="text-muted">1.</div>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="teacher-subject">Home</a>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="media">
+                                                <div class="media-left">2.</div>
+                                                <div class="media-body">
+                                                    <a href="sub-announcement">Announcements</a>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item active">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <div class="text-muted">3.</div>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a class="text-white" href="subject-modules">Modules</a>
+
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <div class="text-muted">4.</div>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="sub-assignment">Assignments</a>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <div class="text-muted">5.</div>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="#">Quizzes</a>
+                                                    
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <div class="text-muted">6.</div>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="#">Grades</a>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
+
+
+                                <!-- <div class="card ">
+                                    <div class="card-header card-header-large bg-light d-flex align-items-center">
+                                        <div class="flex">
+                                            <h4 class="card-header__title">Related Courses</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="card card__course clear-shadow border">
+                                            <div class=" d-flex justify-content-center">
+                                                <a class="" href="#">
+                                                    <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=clamp&amp;w=800&amp;h=250" style="width:100%" alt="...">
+                                                </a>
+                                            </div>
+                                            <div class="p-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <a class="text-body mb-1" href="#"><strong>Basics of Social Media</strong></a><br>
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="text-blue mr-1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="16" height="16" style="position:relative; top:-2px">
+                                                                    <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
+                                                                        <path d="M2.5,16C2.224,16,2,15.776,2,15.5v-11C2,4.224,2.224,4,2.5,4h14.625c0.276,0,0.5,0.224,0.5,0.5V8c0,0.552,0.448,1,1,1 s1-0.448,1-1V4c0-1.105-0.895-2-2-2H2C0.895,2,0,2.895,0,4v12c0,1.105,0.895,2,2,2h5.375c0.138,0,0.25,0.112,0.25,0.25v1.5 c0,0.138-0.112,0.25-0.25,0.25H5c-0.552,0-1,0.448-1,1s0.448,1,1,1h7.625c0.552,0,1-0.448,1-1s-0.448-1-1-1h-2.75 c-0.138,0-0.25-0.112-0.25-0.25v-1.524c0-0.119,0.084-0.221,0.2-0.245c0.541-0.11,0.891-0.638,0.781-1.179 c-0.095-0.466-0.505-0.801-0.981-0.801L2.5,16z M3.47,9.971c-0.303,0.282-0.32,0.757-0.037,1.06c0.282,0.303,0.757,0.32,1.06,0.037 c0.013-0.012,0.025-0.025,0.037-0.037l2-2c0.293-0.292,0.293-0.767,0.001-1.059c0,0-0.001-0.001-0.001-0.001l-2-2 c-0.282-0.303-0.757-0.32-1.06-0.037s-0.32,0.757-0.037,1.06C3.445,7.006,3.457,7.019,3.47,7.031l1.293,1.293 c0.097,0.098,0.097,0.256,0,0.354L3.47,9.971z M7,11.751h2.125c0.414,0,0.75-0.336,0.75-0.75s-0.336-0.75-0.75-0.75H7 c-0.414,0-0.75,0.336-0.75,0.75S6.586,11.751,7,11.751z M18.25,16.5c0,0.276-0.224,0.5-0.5,0.5s-0.5-0.224-0.5-0.5v-5.226 c0-0.174-0.091-0.335-0.239-0.426c-1.282-0.702-2.716-1.08-4.177-1.1c-0.662-0.029-1.223,0.484-1.252,1.146 c-0.001,0.018-0.001,0.036-0.001,0.054v7.279c0,0.646,0.511,1.176,1.156,1.2c1.647-0.011,3.246,0.552,4.523,1.593 c0.14,0.14,0.33,0.219,0.528,0.218c0.198,0.001,0.388-0.076,0.529-0.215c1.277-1.044,2.878-1.61,4.527-1.6 c0.641-0.023,1.15-0.547,1.156-1.188v-7.279c-0.001-0.327-0.134-0.64-0.369-0.867c-0.236-0.231-0.557-0.353-0.886-0.337 c-1.496,0.016-2.963,0.411-4.265,1.148c-0.143,0.092-0.23,0.251-0.23,0.421V16.5z" stroke="none" fill="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </span>
+                                                            <a href="take-course.html" class="small">Social Media</a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="btn btn-primary ml-auto">$99</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card card__course clear-shadow border">
+                                            <div class=" d-flex justify-content-center">
+                                                <a class="" href="#">
+                                                    <img src="https://images.unsplash.com/photo-1470478626242-c4f9af4585f9?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=clamp&amp;w=800&amp;h=250" style="width:100%" alt="...">
+                                                </a>
+                                            </div>
+                                            <div class="p-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <a class="text-body mb-1" href="#"><strong>UI/UX Basics</strong></a><br>
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="text-blue mr-1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="16" height="16" style="position:relative; top:-2px">
+                                                                    <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
+                                                                        <path d="M2.5,16C2.224,16,2,15.776,2,15.5v-11C2,4.224,2.224,4,2.5,4h14.625c0.276,0,0.5,0.224,0.5,0.5V8c0,0.552,0.448,1,1,1 s1-0.448,1-1V4c0-1.105-0.895-2-2-2H2C0.895,2,0,2.895,0,4v12c0,1.105,0.895,2,2,2h5.375c0.138,0,0.25,0.112,0.25,0.25v1.5 c0,0.138-0.112,0.25-0.25,0.25H5c-0.552,0-1,0.448-1,1s0.448,1,1,1h7.625c0.552,0,1-0.448,1-1s-0.448-1-1-1h-2.75 c-0.138,0-0.25-0.112-0.25-0.25v-1.524c0-0.119,0.084-0.221,0.2-0.245c0.541-0.11,0.891-0.638,0.781-1.179 c-0.095-0.466-0.505-0.801-0.981-0.801L2.5,16z M3.47,9.971c-0.303,0.282-0.32,0.757-0.037,1.06c0.282,0.303,0.757,0.32,1.06,0.037 c0.013-0.012,0.025-0.025,0.037-0.037l2-2c0.293-0.292,0.293-0.767,0.001-1.059c0,0-0.001-0.001-0.001-0.001l-2-2 c-0.282-0.303-0.757-0.32-1.06-0.037s-0.32,0.757-0.037,1.06C3.445,7.006,3.457,7.019,3.47,7.031l1.293,1.293 c0.097,0.098,0.097,0.256,0,0.354L3.47,9.971z M7,11.751h2.125c0.414,0,0.75-0.336,0.75-0.75s-0.336-0.75-0.75-0.75H7 c-0.414,0-0.75,0.336-0.75,0.75S6.586,11.751,7,11.751z M18.25,16.5c0,0.276-0.224,0.5-0.5,0.5s-0.5-0.224-0.5-0.5v-5.226 c0-0.174-0.091-0.335-0.239-0.426c-1.282-0.702-2.716-1.08-4.177-1.1c-0.662-0.029-1.223,0.484-1.252,1.146 c-0.001,0.018-0.001,0.036-0.001,0.054v7.279c0,0.646,0.511,1.176,1.156,1.2c1.647-0.011,3.246,0.552,4.523,1.593 c0.14,0.14,0.33,0.219,0.528,0.218c0.198,0.001,0.388-0.076,0.529-0.215c1.277-1.044,2.878-1.61,4.527-1.6 c0.641-0.023,1.15-0.547,1.156-1.188v-7.279c-0.001-0.327-0.134-0.64-0.369-0.867c-0.236-0.231-0.557-0.353-0.886-0.337 c-1.496,0.016-2.963,0.411-4.265,1.148c-0.143,0.092-0.23,0.251-0.23,0.421V16.5z" stroke="none" fill="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </span>
+                                                            <a href="take-course.html" class="small">Social Media</a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="btn btn-primary ml-auto">$99</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card card__course clear-shadow border">
+                                            <div class=" d-flex justify-content-center">
+                                                <a class="" href="#">
+                                                    <img src="https://images.unsplash.com/photo-1542690563-ca10289ac117?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=clamp&amp;w=800&amp;h=250" style="width:100%" alt="...">
+                                                </a>
+                                            </div>
+                                            <div class="p-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <a class="text-body mb-1" href="#"><strong>Learn Ruby on Rails</strong></a><br>
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="text-blue mr-1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="16" height="16" style="position:relative; top:-2px">
+                                                                    <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
+                                                                        <path d="M2.5,16C2.224,16,2,15.776,2,15.5v-11C2,4.224,2.224,4,2.5,4h14.625c0.276,0,0.5,0.224,0.5,0.5V8c0,0.552,0.448,1,1,1 s1-0.448,1-1V4c0-1.105-0.895-2-2-2H2C0.895,2,0,2.895,0,4v12c0,1.105,0.895,2,2,2h5.375c0.138,0,0.25,0.112,0.25,0.25v1.5 c0,0.138-0.112,0.25-0.25,0.25H5c-0.552,0-1,0.448-1,1s0.448,1,1,1h7.625c0.552,0,1-0.448,1-1s-0.448-1-1-1h-2.75 c-0.138,0-0.25-0.112-0.25-0.25v-1.524c0-0.119,0.084-0.221,0.2-0.245c0.541-0.11,0.891-0.638,0.781-1.179 c-0.095-0.466-0.505-0.801-0.981-0.801L2.5,16z M3.47,9.971c-0.303,0.282-0.32,0.757-0.037,1.06c0.282,0.303,0.757,0.32,1.06,0.037 c0.013-0.012,0.025-0.025,0.037-0.037l2-2c0.293-0.292,0.293-0.767,0.001-1.059c0,0-0.001-0.001-0.001-0.001l-2-2 c-0.282-0.303-0.757-0.32-1.06-0.037s-0.32,0.757-0.037,1.06C3.445,7.006,3.457,7.019,3.47,7.031l1.293,1.293 c0.097,0.098,0.097,0.256,0,0.354L3.47,9.971z M7,11.751h2.125c0.414,0,0.75-0.336,0.75-0.75s-0.336-0.75-0.75-0.75H7 c-0.414,0-0.75,0.336-0.75,0.75S6.586,11.751,7,11.751z M18.25,16.5c0,0.276-0.224,0.5-0.5,0.5s-0.5-0.224-0.5-0.5v-5.226 c0-0.174-0.091-0.335-0.239-0.426c-1.282-0.702-2.716-1.08-4.177-1.1c-0.662-0.029-1.223,0.484-1.252,1.146 c-0.001,0.018-0.001,0.036-0.001,0.054v7.279c0,0.646,0.511,1.176,1.156,1.2c1.647-0.011,3.246,0.552,4.523,1.593 c0.14,0.14,0.33,0.219,0.528,0.218c0.198,0.001,0.388-0.076,0.529-0.215c1.277-1.044,2.878-1.61,4.527-1.6 c0.641-0.023,1.15-0.547,1.156-1.188v-7.279c-0.001-0.327-0.134-0.64-0.369-0.867c-0.236-0.231-0.557-0.353-0.886-0.337 c-1.496,0.016-2.963,0.411-4.265,1.148c-0.143,0.092-0.23,0.251-0.23,0.421V16.5z" stroke="none" fill="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </span>
+                                                            <a href="take-course.html" class="small">Social Media</a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="btn btn-primary ml-auto">$99</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div> -->
+                                <!--
+                <div class="rating text-warning">
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star_border</i>
+                </div>
+                <small class="text-muted">20 ratings</small>
+            </div>
+        </div> -->
                             </div>
                         </div>
                     </div>
-                         
-                        
-
-                    </div>
-
-
-                    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-                    <script>
-                        AOS.init();
-                    </script>
 
 
                 </div>
@@ -434,8 +508,8 @@
                                             <span class="avatar-title rounded-circle bg-soft-secondary text-muted">AD</span>
                                         </span>
                                         <span class="flex d-flex flex-column">
-                                            <strong>John Doe</strong>
-                                            <small class="text-muted text-uppercase">Administrator</small>
+                                            <strong>Ted Manansala</strong>
+                                            <small class="text-muted text-uppercase">Teacher</small>
                                         </span>
                                     </a>
                                     <div class="dropdown ml-auto">
@@ -455,7 +529,7 @@
                                 <!-- <div class="sidebar-heading">Student</div> -->
 
 
-                                @include('admin/navigation')
+                                @include('teacher/navigation')
 
                         </div>
                     </div>
@@ -629,12 +703,86 @@
         </div>
     </div>
 
-    
+    <!-- <a href="#" class="float">
+                            <i class="fa fa-plus my-float"></i>
+                            </a> -->
+                            <!-- <span type="button" class="floating-btn" data-toggle="modal" data-target="#modal-large" data-backdrop="false"><a class="material-icons">add</a></span> -->
+    <!-- App Settings FAB -->
+    <!-- <div id="app-settings">
+        <app-settings layout-active="default" :layout-location="{
+      'default': 'index.html',
+      'fixed': 'fixed-index.html',
+      'fluid': 'fluid-index.html',
+      'mini': 'mini-index.html'
+    }"></app-settings>
+    </div> -->
 
     @include('footer')
 
+    <div id="modal-large" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-large-title">Create Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> <!-- // END .modal-header -->
+                <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Subject</label>
+                        <input type="text" class="form-control" placeholder="Create a subject">
+                    </div>
+                    <div id="editor">
+                    </div>
+                </div> <!-- // END .modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </form>
+                </div> <!-- // END .modal-footer -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
 
 
 </body>
 
+<script>
+
+$(document).ready(function(){
+  $(".mylist ").hide();
+  $(".rotate").click(function () {
+
+      $(this).toggleClass("down");
+      var id = $(this).attr("data-id");
+
+      var className = $("#arrow"+id).attr("class");
+        if($("#arrow"+id).attr("class")=="fa fa-chevron-right rotate down"){
+          $("#mod_items"+id).show();
+        }else{
+          $("#mod_items"+id).hide();
+        }
+
+
+
+  });
+
+
+
+
+
+
+
+
+
+});
+
+
+</script>
+
+
 </html>
+
+

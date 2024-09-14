@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Account Management</title>
+    <title>Subject Management</title>
 
     <style>
 
@@ -234,7 +234,7 @@
 
                     <div class="container-fluid page__container">
                        
-                         <h2 class="bold m-4 text-center p-4">Account Management</h2>
+                         <h2 class="bold m-4 text-center p-4">Subject Management</h2>
                          @if(session('success'))
                          <div class="alert alert-success" role="alert">
                             <strong>Success! </strong> you have created a new account!
@@ -244,7 +244,7 @@
 
                          <div class="card">
                                     <div class="card-header card-header-large bg-white d-flex align-items-center">
-                                        <h4 class="card-header__title flex m-0">User Accounts</h4>
+                                        <h4 class="card-header__title flex m-0">Manage Subjects for 1ST SEM AY 2021-2022</h4>
                                         <div>
                                         <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal-large" data-backdrop="false">
                                             <i class="fa fa-user-plus"></i>
@@ -252,113 +252,218 @@
                                         </div>
                                     </div>
                                     <div class="card-header card-header-tabs-basic nav" role="tablist">
-                                        <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">Coordinators</a>
-                                        <a href="#activity_purchases" data-toggle="tab" role="tab" aria-selected="false">Teacher</a>
-                                        <a href="#activity_emails" data-toggle="tab" role="tab" aria-selected="false">Students</a>
-                                        <a href="#activity_quotes" data-toggle="tab" role="tab" aria-selected="false">Administrator</a>
+                                        <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">BSIT</a>
+                                        <a href="#activity_purchases" data-toggle="tab" role="tab" aria-selected="false">BSIS</a>
+                                        <a href="#activity_emails" data-toggle="tab" role="tab" aria-selected="false">BSCS</a>
                                     </div>
                                     <div class="card-body tab-content">
                                         <div class="tab-pane active show fade" id="activity_all">
-                                            <table id="coordinators" class="dtable mb-0 thead-border-top-0">
+                                            <table id="BSIT" class="dtable mb-0 thead-border-top-0">
                                                 <thead  class="card-header__title flex m-0">
                                                     <tr>
-                                                    <th scope="col">ID number</th>
-                                                    <th scope="col">Full Name</th>
-                                                    <th scope="col">Department</th>
-                                                    <th scope="col">Role</th>
-                                                    <th scope="col">Status</th>
+                                                    <th scope="col">COURSE NO</th>
+                                                    <th scope="col">DESCRIPTIVE TITLE</th>
+                                                    <th scope="col">PRE-REQUISITE</th>
+                                                    <th scope="col">CO-REQUISITE</th>
+                                                    <th scope="col">UNITS</th>
+                                                    <th scope="col">ACTION</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($coords as $coord )
                                                     <tr>
-                                                    <th scope="row">{{$coord->idnum}}</th>
-                                                    <td>{{$coord->co_fname}} {{$coord->co_lname}}</td>
-                                                    <td>{{$coord->department_name}}</td>
-                                                    <td>Coordinator</td>
-                                                    <td>Active</td>
+                                                    <th scope="row">GE 1</th>
+                                                    <td>Understanding the Self</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#subjgroups" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
                                                     </tr>
-                                                @endforeach
+                                                    <tr>
+                                                    <th scope="row">GE 2</th>
+                                                    <td>Readings in the Philippine Philosophy</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">AE 2</th>
+                                                    <td>Law on Obligations and Contracts</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="tab-pane fade" id="activity_purchases">
-                                        <table id="teachers" class="dtable">
-                                        <thead  class="card-header__title flex m-0">
-                                                    <tr>
-                                                    <th scope="col">ID number</th>
-                                                    <th scope="col">Full Name</th>
-                                                    <th scope="col">Department</th>
-                                                    <th scope="col">Role</th>
-                                                    <th scope="col">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($teacher as $teachers )
-                                                    <tr>
-                                                    <th scope="row">{{$teachers->idnum}}</th>
-                                                    <td>{{$teachers->t_lname}} {{$teachers->t_fname}}</td>
-                                                    <td>{{$teachers->department_name}}</td>
-                                                    <td>Teacher</td>
-                                                    <td>Active</td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                        </table>
-                                        </div>
-                                        <div class="tab-pane fade" id="activity_emails">
-                                        <table id="students" class="dtable">
-                                        <thead  class="card-header__title flex m-0">
-                                                    <tr>
-                                                    <th scope="col">ID number</th>
-                                                    <th scope="col">Full Name</th>
-                                                    <th scope="col">Course</th>
-                                                    <th scope="col">Department</th>
-                                                    <th scope="col">Year Level</th>
-                                                    <th scope="col">Role</th>
-                                                    <th scope="col">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($student as $students )
-                                                    <tr>
-                                                    <th scope="row">{{$students->idnum}}</th>
-                                                    <td>{{$students->stlname}} {{$students->stfname}}</td>
-                                                    <td>{{$students->pr_code}}</td>
-                                                    <td>{{$students->department_name}}</td>
-                                                    <td>3</td>
-                                                    <td>Student</td>
-                                                    <td>Active</td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                        </table>
-                                        </div>
-                                        <div class="tab-pane fade" id="activity_quotes">
-                                        <table id="admins" class="dtable">
-
+                                        <table id="BSIT" class="dtable mb-0 thead-border-top-0">
                                                 <thead  class="card-header__title flex m-0">
                                                     <tr>
-                                                    <th scope="col">ID number</th>
-                                                    <th scope="col">Full Name</th>
-                                                    <th scope="col">Department</th>
-                                                    <th scope="col">Role</th>
-                                                    <th scope="col">Status</th>
+                                                    <th scope="col">COURSE NO</th>
+                                                    <th scope="col">DESCRIPTIVE TITLE</th>
+                                                    <th scope="col">PRE-REQUISITE</th>
+                                                    <th scope="col">CO-REQUISITE</th>
+                                                    <th scope="col">UNITS</th>
+                                                    <th scope="col">ACTION</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                  @foreach($admin as $admins )
                                                     <tr>
-                                                    <th scope="row">{{$admins->idnum}}</th>
-                                                    <td>{{$admins->a_lname}} {{$admins->a_fname}}</td>
-                                                    <td>{{$admins->department_name}}</td>
-                                                    <td>Admin</td>
-                                                    <td>Active</td>
+                                                    <th scope="row">GE 1</th>
+                                                    <td>Understanding the Self</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
                                                     </tr>
-                                                    @endforeach
+                                                    <tr>
+                                                    <th scope="row">GE 2</th>
+                                                    <td>Readings in the Philippine Philosophy</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">AE 2</th>
+                                                    <td>Law on Obligations and Contracts</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
-                                        </table>
+                                        </div>
+                                        <div class="tab-pane fade" id="activity_emails">
+                                        <table id="BSIT" class="dtable mb-0 thead-border-top-0">
+                                                <thead  class="card-header__title flex m-0">
+                                                    <tr>
+                                                    <th scope="col">COURSE NO</th>
+                                                    <th scope="col">DESCRIPTIVE TITLE</th>
+                                                    <th scope="col">PRE-REQUISITE</th>
+                                                    <th scope="col">CO-REQUISITE</th>
+                                                    <th scope="col">UNITS</th>
+                                                    <th scope="col">ACTION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <th scope="row">GE 1</th>
+                                                    <td>Understanding the Self</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">GE 2</th>
+                                                    <td>Readings in the Philippine Philosophy</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">AE 2</th>
+                                                    <td>Law on Obligations and Contracts</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade" id="activity_quotes">
+                                        <table id="BSIT" class="dtable mb-0 thead-border-top-0">
+                                                <thead  class="card-header__title flex m-0">
+                                                    <tr>
+                                                    <th scope="col">COURSE NO</th>
+                                                    <th scope="col">DESCRIPTIVE TITLE</th>
+                                                    <th scope="col">PRE-REQUISITE</th>
+                                                    <th scope="col">CO-REQUISITE</th>
+                                                    <th scope="col">UNITS</th>
+                                                    <th scope="col">ACTION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <th scope="row">GE 1</th>
+                                                    <td>Understanding the Self</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">GE 2</th>
+                                                    <td>Readings in the Philippine Philosophy</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">AE 2</th>
+                                                    <td>Law on Obligations and Contracts</td>
+                                                    <td>NONE</td>
+                                                    <td>NONE</td>
+                                                    <td>3</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -412,7 +517,7 @@
                                 <!-- <div class="sidebar-heading">Student</div> -->
 
 
-                                @include('admin/navigation')
+                                @include('coordinator/navigation')
 
                         </div>
                     </div>
@@ -559,11 +664,11 @@
     }"></app-settings>
     </div> -->
     <script>
-        // var options = {
-        //     valueNames: [ 'name', 'born' ]
-        //     };
+        var options = {
+            valueNames: [ 'name', 'born' ]
+            };
 
-        //     var userList = new List('users', options);
+            var userList = new List('users', options);
     </script>
     @include('footer')
 
@@ -588,7 +693,7 @@
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                 <label for="select01">Account type:</label>
-                                                <select id="role" name="role" data-toggle="select" class="form-control">
+                                                <select id="user_role" name="role" data-toggle="select" class="form-control">
                                                     <option id="admin_fields" value="admin">Administrator</option>
                                                     <option id="coord_fields" value="coordinator">Coordinator</option>
                                                     <option id="teacher_fields" value="teacher">Teacher</option>
@@ -610,35 +715,18 @@
                                                     <input type="text" name="mname" class="form-control" id="exampleInputPassword1" placeholder="eg.. Santos">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="depts">Department:
-                                                </label>
-                                                <select name="act_dept" data-toggle="select" class="form-control">
-                                                    @foreach($depts as $dept)
-                                                    <option value=<?php echo $dept["id"]; ?>>{{$dept['department_name']}}</option>
-                                                    @endforeach
-                                                </select>                  
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="select01">Academic Year: </label>
-                                                <select id="select01" name="dept" data-toggle="select" class="form-control">
-                                                    @foreach($acads as $acad)
-                                                    
-                                                   
-                                                    <option value="{{$acad['id']}}">{{$acad['acad_year']}} {{$acad['period']}}</option>
-                                        
-                                                    @endforeach
-                                                </select>                  
-                                            </div>
 
 
-                                        <div id="disp_course" class="form-group dontshow">
+                                        <div id="disp_course" class="form-group">
                                                 <label for="select01">Course: </label>
-                                                <select id="stprog" name="course" data-toggle="select" class="form-control">
-                                                    @foreach($progs as $prog)    
-                                                      <option data-id="{{$prog['pr_dept']}}" data-dept={{$prog['pr_dept']}} value={{$prog['id']}}>{{$prog['pr_code']}} - {{$prog['pr_descr']}}</option>
-                                                    @endforeach
+                                                <select id="select01" name="course" data-toggle="select" class="form-control">
+                                                    <option value="dept here" selected>BSIT</option>
                                                 </select>                  
+                                        </div>
+
+                                        <div id="disp_course" class="form-group">
+                                                <label for="select01">Type: </label>
+                                                <span id="#enterhere"></span>                 
                                         </div>
 
                                        
@@ -654,22 +742,126 @@
         </div> <!-- // END .modal-dialog -->
     </div> <!-- // END .modal -->
 
+    <div id="subjgroups" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-large-title">Manage Groups for GE 1</h5>
+                    <div class="text-left">
+                        <button type="button" class="btn btn-primary text-left"  data-toggle="modal" data-target="#modal-large" data-backdrop="false">
+                                            <i class="fa fa-plus"></i>Add Group
+                         </button>
+                    </div>                
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> <!-- // END .modal-header -->
+                <div class="modal-body">
+                <div class="col-lg-12 card-body">
+                                            <table id="BSIT" class="dtable mb-0 thead-border-top-0">
+                                                <thead  class="card-header__title flex m-0">
+                                                    <tr>
+                                                    <th scope="col">COURSE NO</th>
+                                                    <th scope="col">GROUP</th>
+                                                    <th scope="col">TERM</th>
+                                                    <th scope="col">TEACHER</th>
+                                                    <th scope="col">ENROLLEES</th>
+                                                    <th scope="col">ACTION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <th scope="row">GE 1</th>
+                                                    <td>1</td>
+                                                    <td>1st sememester 2022-2023</td>
+                                                    <td>PETRA MAHALIMUYAK</td>
+                                                    <td>0/30</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#editGroup" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">GE 2</th>
+                                                    <td>2</td>
+                                                    <td>1st sememester 2022-2023</td>
+                                                    <td>JAKE FORBES</td>
+                                                    <td>0/30</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">AE 2</th>
+                                                    <td>1</td>
+                                                    <td>1st sememester 2022-2023</td>
+                                                    <td>DANIELLE MULACH</td>
+                                                    <td>0/30</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                </div> <!-- // END .modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+               
+                </div> <!-- // END .modal-footer -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
 
+    <div id="editGroup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-large-title">Edit G1 GROUP 1</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> <!-- // END .modal-header -->
+                <div class="modal-body">
+                <div class="col-lg-12 card-body">
+                                    <form method="post" action="accounts">
+                                    @csrf
+
+
+                                        <div id="teacher" class="form-group">
+                                                <label for="select01">TEACHER: </label>
+                                                <select id="select01" name="course" data-toggle="select" class="form-control">
+                                                    <option value="dept here" selected>ERIC MANANSALA</option>
+                                                    <option value="dept here" selected>DANIELLE MULACH</option>
+                                                </select>                  
+                                        </div>
+
+                                        <div id="enrollees" class="form-group">
+                                                <label for="select01">ENROLLEES: </label>
+                                                <input type="number" name="enrollees" class="form-control"  placeholder="Enter your ID number">               
+                                        </div>
+
+                                       
+                                    
+                                </div>
+                </div> <!-- // END .modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div> <!-- // END .modal-footer -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
 </body>
 <script>
           var selected_role = $("#user_role").val();
-          $("#enterhere").innerHTML = selected_role;
-
-        //   $("#stprog").change(function(){
-
-        //      alert($("<option>").attr('data-id').val());
-
-
-        //   });
-
-
-          
-          
+      $("#enterhere").innerHTML = selected_role;
 
 </script>
 </html>

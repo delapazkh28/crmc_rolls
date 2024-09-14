@@ -224,188 +224,45 @@
 
                     <div class="container-fluid page__container">
                        
-                         <h2 class="bold m-4 text-center p-4">Academic Year</h2> 
-                         @if(session('success'))
-                         <div class="alert alert-success" role="alert">
-                            <strong>Success! </strong> you have created a new Academic Year!
-                        </div>
-                         @endif
+                         <h2 class="bold m-4 text-center p-4">Messaging</h2> 
                          
-                         <div class="container-fluid page__container">
-                        <div class="row">
-                            <div class="col-lg">
+
+                    
                                 <div class="card">
-                                    <div class="card-header card-header-large bg-white d-flex align-items-center">
-                                        <h4 class="card-header__title flex m-0">Current Academic Year:</h4>
-                                        <div>
-                                            <span>2020-2021 1st Semester</span>
-                                        </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Inbox</h5>
+
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr>
+                                                <th scope="row">Jen Malinao</th>
+                                                <td scope="row"><strong>Request for project extension<strong></td>
+                                                <td>message here..</td>
+                                                <td><strong>01/12/2022<strong></td>
+                                                <td><i class="fa fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                <tr>
+                                                <td scope="row">Niel Guevarra</td>
+                                                <td scope="row">Excuse Letter</td>
+                                                <td>message here..</td>
+                                                <td>01/23/2022</td>
+                                                <td><i class="fa fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                <td scope="row">Ken Torres</td>
+                                                <td scope="row">Class Inquiry</td>
+                                                <td>message here..</td>
+                                                <td>01/28/2022</td>
+                                                <td><i class="fa fa-ellipsis-v"></i></td>
+                                                </tr>
+                                            </tbody>
+                                            </table>
                                     </div>
-                                    <div class="card-header card-header-tabs-basic nav" role="tablist">
-                                        <!-- <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">All</a> -->
-                                        
-                                    </div>
-                                    <div class="card-body tab-content">
-                                        <div class="tab-pane active show fade" id="activity_all">
-                                           
-                                        <table  id="acadyr" class="dtable" style="padding: 10px;">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">Academic year & Period</th>
-                                            <th scope="col">Created By</th>
-                                            <th scope="col">Status</th>
-                                            <th scrope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($acadyrs as $acadyr )
-                                            <tr>
-                                                <td>{{$acadyr['acad_year']}} - {{$acadyr['period']}}</td>
-                                                <td>John Doe</td>
-                                                <td>{{$acadyr['status']}}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#settings{{$acadyr['id']}}" data-backdrop="false">
-                                                        <i class="material-icons">settings</i>
-                                                    </button>
-                                                </td>
-                                                <div id="settings{{$acadyr['id']}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-standard-title" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modal-standard-title">Academic Year Details {{$acadyr['id']}}</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div> <!-- // END .modal-header -->
-                                                            <div class="modal-body">
-
-                                                            <div class=" card-header-tabs-basic nav" role="tablist">
-                                                                <a href="#edit_info" class="active" data-toggle="tab" role="tab" aria-controls="edit_info" aria-selected="true">Edit</a>
-                                                                <a href="#detail_info" data-toggle="tab" role="tab" aria-selected="false">Details</a>
-
-                                                            </div>
-                                                            <div class="card-body tab-content">
-                                                                <div class="tab-pane active show fade" id="edit_info">
-                                                                <form method="post" action="academicyear">
-                                                                @csrf
-                                                                <div class="form-row">
-                                                                        <div class="col-12 col-md-6 mb-3">
-                                                                            <label for="validationSample01">Academic year</label>
-                                                                            <input type="text" name="ed_acad_year" value="{{$acadyr['acad_year']}}" class="form-control" placeholder="Year"  required>
-                                                                        </div>
-                                                                        <div class="col-12 col-md-6 mb-3">
-                                                                            <input type="hidden" name="acad_id" value="{{$acadyr['id']}}">
-                                                                            <label for="validationSample01">Period</label>
-                                                                            <select id="select01" name="ed_period" data-toggle="select" class="form-control">
-                                                                                <option  value="{{$acadyr['period']}}">{{$acadyr['period']}}</option>
-                                                                                <option value="1ST Semester">1ST Semester</option>
-                                                                                <option value="2ND Semester">2ND Semester</option>
-                                                                                <option value="Summer">Summer</option>
-                                                                                <option value="1ST Trimester">1ST Trimester</option>
-                                                                                <option value="2ND Trimester">2ND Trimester</option>
-                                                                                <option value="3RD Trimester">3RD Trimester</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        
-                                                                    </div>
-
-                                                                        <div class="form-group">
-                                                                        <label for="subscribe">Set as Active Academic Year</label><br>
-                                                                            <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
-                                                                                <input checked="" type="checkbox" id="subscribe" class="custom-control-input">
-                                                                                <label class="custom-control-label" for="subscribe">Yes</label>
-                                                                            </div>
-                                                                            <label for="subscribe" class="mb-0">Yes</label>
-                                                                        </div>
-                                                                        
-
-
-                                                                </div>
-                                                                <div class="tab-pane fade" id="detail_info">
-
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">Created By:</p> 
-                                                                    <p><strong>John Doe</strong></p>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">Start Date:</p> 
-                                                                    <p><strong>June 24, 2020</strong></p>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">End Date:</p> 
-                                                                    <p><strong>August 17, 2020</strong></p>
-                                                                </div>
-                                                                
-
-
-                                                                </div>
-                                                            
-                                                            </div>
-                                                    
-                                                            </div> <!-- // END .modal-body -->
-                                                            <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                                </form>
-                                                            </div> <!-- // END .modal-footer -->
-                                                        </div> <!-- // END .modal-content -->
-                                                    </div> <!-- // END .modal-dialog -->
-                                                </div> <!-- // END .modal -->
-                                            </tr>
-                                            @endforeach
-                                
-                                        </tbody>
-                                        </table>
-
-                                        </div>
-                                        
-                                    </div>
+                                    <!-- <div class="card-footer text-muted">
+                                    Just now
+                                    </div> -->
                                 </div>
-                            </div>
-                            <div class="col-lg">
-                            <div class="card">
-                                    <div class="card-header card-header-large bg-white d-flex align-items-center">
-                                        <h4 class="card-header__title flex m-0">Create new Academic Year</h4>
-                                    </div>
-                                    <div class="card-header card-header-tabs-basic nav" role="tablist">
-                                        <!-- <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">All</a> -->
-                                        
-                                    </div>
-                                    <div class="card-body tab-content">
-                                        <div class="tab-pane active show fade" id="activity_all">
-                                           
-                                        <form method="post" action="academicyear">
-                                        @csrf
-                                        <div class="form-row">
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="validationSample01">Academic year</label>
-                                                    <input type="text" name="acad_year" class="form-control" placeholder="Year"  required>
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="validationSample01">Period</label>
-                                                    <select id="select01" name="period" data-toggle="select" class="form-control">
-                                                        <option selected="">SELECT PERIOD</option>
-                                                        <option value="1ST Semester">1ST Semester</option>
-                                                        <option value="2ND Semester">2ND Semester</option>
-                                                        <option value="Summer">Summer</option>
-                                                        <option value="1ST Trimester">1ST Trimester</option>
-                                                        <option value="2ND Trimester">2ND Trimester</option>
-                                                        <option value="3RD Trimester">3RD Trimester</option>
-                                                    </select>
-                                                </div>
-                                                
-                                            </div>
-                                            
-                                            <button type="submit" class="btn btn-primary float-right">Submit</button>
-                                         </form>
-
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                          
                         
 
@@ -434,8 +291,8 @@
                                             <span class="avatar-title rounded-circle bg-soft-secondary text-muted">AD</span>
                                         </span>
                                         <span class="flex d-flex flex-column">
-                                            <strong>John Doe</strong>
-                                            <small class="text-muted text-uppercase">Administrator</small>
+                                            <strong>Ted Manansala</strong>
+                                            <small class="text-muted text-uppercase">Teacher</small>
                                         </span>
                                     </a>
                                     <div class="dropdown ml-auto">
@@ -629,10 +486,48 @@
         </div>
     </div>
 
-    
+    <!-- <a href="#" class="float">
+                            <i class="fa fa-plus my-float"></i>
+                            </a> -->
+                            <span type="button" class="floating-btn" data-toggle="modal" data-target="#modal-large" data-backdrop="false"><a class="material-icons">add</a></span>
+    <!-- App Settings FAB -->
+    <!-- <div id="app-settings">
+        <app-settings layout-active="default" :layout-location="{
+      'default': 'index.html',
+      'fixed': 'fixed-index.html',
+      'fluid': 'fluid-index.html',
+      'mini': 'mini-index.html'
+    }"></app-settings>
+    </div> -->
 
     @include('footer')
 
+    <div id="modal-large" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-large-title">Create Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> <!-- // END .modal-header -->
+                <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Subject</label>
+                        <input type="text" class="form-control" placeholder="Create a subject">
+                    </div>
+                    <div id="editor">
+                    </div>
+                </div> <!-- // END .modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </form>
+                </div> <!-- // END .modal-footer -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
 
 
 </body>

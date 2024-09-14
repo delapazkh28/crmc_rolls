@@ -285,31 +285,40 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                <th scope="col">ID number</th>
+                                                <th scope="col">Full Name</th>
+                                                <th scope="col">Department</th>
+                                                <th scope="col">Role</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach($teacher as $teachers )
                                                 <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
+                                                <th scope="row">{{$teachers->idnum}}</th>
+                                                <td>{{$teachers->t_lname}} {{$teachers->t_fname}}
+                                                </td>
+                                                <td>{{$data['department_name']}}</td>
+                                                <td>Teacher</td>
+                                                <td>Active</td>
+                                                <td><button type="button" class="btn btn-info btn-rounded">
+                                                <i class="material-icons">settings</i>
+                                                </button></td>
                                                 </tr>
+                                            @endforeach
+                                            @foreach($coords as $coord)
                                                 <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
+                                                <th scope="row">{{$coord->idnum}}</th>
+                                                <td>{{$coord->co_lname}} {{$coord->co_fname}}</td>
+                                                <td>{{$data['department_name']}}</td>
+                                                <td>Coordinator</td>
+                                                <td>Active</td>
+                                                <td><button type="button" class="btn btn-info btn-rounded">
+                                                <i class="material-icons">settings</i>
+                                                </button></td>
                                                 </tr>
-                                                <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                             

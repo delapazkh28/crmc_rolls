@@ -27,6 +27,8 @@ class AcadyrController extends Controller
         return view('admin/academicyear', ['acadyrs'=>$data]);
     }
 
+
+
     // function showAcadData($id){
     //     $data = Academicyear::find($id);
     //     return view('admin/academicyear', ['data' => $data]);

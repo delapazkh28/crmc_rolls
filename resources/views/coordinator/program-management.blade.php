@@ -5,7 +5,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Dashboard</title>
+    <title>Course Management</title>
+
+    <style>
+
+        .modal-backdrop {
+        z-index: -1;
+        }
+
+    </style>
 
 @include('header')
 </head>
@@ -163,6 +171,8 @@
                                     </span>
                                 </a>
                             </li>
+
+                
                             <!-- <li class="nav-item nav-item-circle">
           <a href="#" class="nav-link d-flex align-items-center navbar-circle-link">
           <span class="rounded-circle">
@@ -224,189 +234,80 @@
 
                     <div class="container-fluid page__container">
                        
-                         <h2 class="bold m-4 text-center p-4">Academic Year</h2> 
+                         <h2 class="bold m-4 text-center p-4">Program Management</h2>
                          @if(session('success'))
                          <div class="alert alert-success" role="alert">
-                            <strong>Success! </strong> you have created a new Academic Year!
+                            <strong>Success! </strong> you have created a new Program!
                         </div>
                          @endif
-                         
-                         <div class="container-fluid page__container">
-                        <div class="row">
-                            <div class="col-lg">
-                                <div class="card">
+
+
+                         <div class="card">
                                     <div class="card-header card-header-large bg-white d-flex align-items-center">
-                                        <h4 class="card-header__title flex m-0">Current Academic Year:</h4>
+                                        <h4 class="card-header__title flex m-0">Department Programs</h4>
                                         <div>
-                                            <span>2020-2021 1st Semester</span>
+                                        <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal-large" data-backdrop="false">
+                                            <i class="fa fa-user-plus"></i>
+                                        </button>
                                         </div>
                                     </div>
-                                    <div class="card-header card-header-tabs-basic nav" role="tablist">
-                                        <!-- <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">All</a> -->
-                                        
-                                    </div>
+                                    <!-- <div class="card-header card-header-tabs-basic nav" role="tablist">
+                                        <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">BSIT</a>
+                                    </div> -->
                                     <div class="card-body tab-content">
                                         <div class="tab-pane active show fade" id="activity_all">
-                                           
-                                        <table  id="acadyr" class="dtable" style="padding: 10px;">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">Academic year & Period</th>
-                                            <th scope="col">Created By</th>
-                                            <th scope="col">Status</th>
-                                            <th scrope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($acadyrs as $acadyr )
-                                            <tr>
-                                                <td>{{$acadyr['acad_year']}} - {{$acadyr['period']}}</td>
-                                                <td>John Doe</td>
-                                                <td>{{$acadyr['status']}}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#settings{{$acadyr['id']}}" data-backdrop="false">
+                                            <table id="BSIT" class="dtable mb-0 thead-border-top-0">
+                                                <thead  class="card-header__title flex m-0">
+                                                    <tr>
+                                                    <th scope="col">COURSE CODE</th>
+                                                    <th scope="col">DESCRIPTIVE TITLE</th>
+                                                    <th scope="col">ACTION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($progs as $prog)
+                                                    <tr>
+                                                    <th scope="row">{{$prog->pr_code}}</th>
+                                                    <td>{{$prog->pr_descr}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                                         <i class="material-icons">settings</i>
-                                                    </button>
-                                                </td>
-                                                <div id="settings{{$acadyr['id']}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-standard-title" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="manage-program/{{$prog->id}}">Manage</a>
+                                                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#delete{{$prog->id}}">Delete</a>
+                                                        </div>
+                                                    </td>
+                                                    </tr>
+                                                    <!-- Delete Modal -->
+                                                        <div class="modal fade" id="delete{{$prog->id}}" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="modal-standard-title">Academic Year Details {{$acadyr['id']}}</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Delete {{$prog->pr_code}}</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
+                                                                <span aria-hidden="true">&times;</span>
                                                                 </button>
-                                                            </div> <!-- // END .modal-header -->
+                                                            </div>
                                                             <div class="modal-body">
-
-                                                            <div class=" card-header-tabs-basic nav" role="tablist">
-                                                                <a href="#edit_info" class="active" data-toggle="tab" role="tab" aria-controls="edit_info" aria-selected="true">Edit</a>
-                                                                <a href="#detail_info" data-toggle="tab" role="tab" aria-selected="false">Details</a>
-
+                                                                Are you sure you want to delete {{$prog->pr_code}} ?
                                                             </div>
-                                                            <div class="card-body tab-content">
-                                                                <div class="tab-pane active show fade" id="edit_info">
-                                                                <form method="post" action="academicyear">
-                                                                @csrf
-                                                                <div class="form-row">
-                                                                        <div class="col-12 col-md-6 mb-3">
-                                                                            <label for="validationSample01">Academic year</label>
-                                                                            <input type="text" name="ed_acad_year" value="{{$acadyr['acad_year']}}" class="form-control" placeholder="Year"  required>
-                                                                        </div>
-                                                                        <div class="col-12 col-md-6 mb-3">
-                                                                            <input type="hidden" name="acad_id" value="{{$acadyr['id']}}">
-                                                                            <label for="validationSample01">Period</label>
-                                                                            <select id="select01" name="ed_period" data-toggle="select" class="form-control">
-                                                                                <option  value="{{$acadyr['period']}}">{{$acadyr['period']}}</option>
-                                                                                <option value="1ST Semester">1ST Semester</option>
-                                                                                <option value="2ND Semester">2ND Semester</option>
-                                                                                <option value="Summer">Summer</option>
-                                                                                <option value="1ST Trimester">1ST Trimester</option>
-                                                                                <option value="2ND Trimester">2ND Trimester</option>
-                                                                                <option value="3RD Trimester">3RD Trimester</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        
-                                                                    </div>
-
-                                                                        <div class="form-group">
-                                                                        <label for="subscribe">Set as Active Academic Year</label><br>
-                                                                            <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
-                                                                                <input checked="" type="checkbox" id="subscribe" class="custom-control-input">
-                                                                                <label class="custom-control-label" for="subscribe">Yes</label>
-                                                                            </div>
-                                                                            <label for="subscribe" class="mb-0">Yes</label>
-                                                                        </div>
-                                                                        
-
-
-                                                                </div>
-                                                                <div class="tab-pane fade" id="detail_info">
-
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">Created By:</p> 
-                                                                    <p><strong>John Doe</strong></p>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">Start Date:</p> 
-                                                                    <p><strong>June 24, 2020</strong></p>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <p class="font-weight-light">End Date:</p> 
-                                                                    <p><strong>August 17, 2020</strong></p>
-                                                                </div>
-                                                                
-
-
-                                                                </div>
-                                                            
-                                                            </div>
-                                                    
-                                                            </div> <!-- // END .modal-body -->
                                                             <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                                </form>
-                                                            </div> <!-- // END .modal-footer -->
-                                                        </div> <!-- // END .modal-content -->
-                                                    </div> <!-- // END .modal-dialog -->
-                                                </div> <!-- // END .modal -->
-                                            </tr>
-                                            @endforeach
-                                
-                                        </tbody>
-                                        </table>
-
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <a type="button" class="btn btn-primary" href="program-management/{{$prog->id}}">Save changes</a>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                  @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        
+                                        
                                         
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg">
-                            <div class="card">
-                                    <div class="card-header card-header-large bg-white d-flex align-items-center">
-                                        <h4 class="card-header__title flex m-0">Create new Academic Year</h4>
-                                    </div>
-                                    <div class="card-header card-header-tabs-basic nav" role="tablist">
-                                        <!-- <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">All</a> -->
-                                        
-                                    </div>
-                                    <div class="card-body tab-content">
-                                        <div class="tab-pane active show fade" id="activity_all">
-                                           
-                                        <form method="post" action="academicyear">
-                                        @csrf
-                                        <div class="form-row">
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="validationSample01">Academic year</label>
-                                                    <input type="text" name="acad_year" class="form-control" placeholder="Year"  required>
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="validationSample01">Period</label>
-                                                    <select id="select01" name="period" data-toggle="select" class="form-control">
-                                                        <option selected="">SELECT PERIOD</option>
-                                                        <option value="1ST Semester">1ST Semester</option>
-                                                        <option value="2ND Semester">2ND Semester</option>
-                                                        <option value="Summer">Summer</option>
-                                                        <option value="1ST Trimester">1ST Trimester</option>
-                                                        <option value="2ND Trimester">2ND Trimester</option>
-                                                        <option value="3RD Trimester">3RD Trimester</option>
-                                                    </select>
-                                                </div>
-                                                
-                                            </div>
-                                            
-                                            <button type="submit" class="btn btn-primary float-right">Submit</button>
-                                         </form>
-
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                         
                         
 
                     </div>
@@ -421,6 +322,8 @@
 
                 </div>
                 <!-- // END drawer-layout__content -->
+
+
 
                 <div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="start">
                     <div class="mdk-drawer__content">
@@ -455,7 +358,7 @@
                                 <!-- <div class="sidebar-heading">Student</div> -->
 
 
-                                @include('admin/navigation')
+                                @include('coordinator/navigation')
 
                         </div>
                     </div>
@@ -551,46 +454,7 @@
                     <strong>Tuesday, 26 Feb</strong>
                 </small>
 
-                <div class="list-group list-group-flush">
-
-                    <div class="list-group-item bg-light">
-                        <div class="row">
-                            <div class="col-auto d-flex flex-column">
-                                <small>03:13 PM</small>
-                                <small class="text-dark-gray">2 hrs</small>
-                            </div>
-                            <div class="col">
-                                <div class="d-flex flex-column flex">
-                                    <a href="#" class="text-body"><strong class="text-15pt">Design Team Meeting</strong></a>
-
-                                    <small class="text-muted d-flex align-items-center"><i class="material-icons icon-16pt mr-1">location_on</i> 16845 Hicks Road</small>
-
-
-                                </div>
-                                <div class="avatar-group mt-2">
-
-                                    <div class="avatar avatar-xs">
-                                        <img src="assets/images/256_rsz_1andy-lee-642320-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle">
-                                    </div>
-
-                                    <div class="avatar avatar-xs">
-                                        <img src="assets/images/256_michael-dam-258165-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle">
-                                    </div>
-
-                                    <div class="avatar avatar-xs">
-                                        <img src="assets/images/256_luke-porter-261779-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle">
-                                    </div>
-
-                                    <div class="avatar avatar-xs">
-                                        <img src="assets/images/stories/256_rsz_clem-onojeghuo-193397-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                
 
                 <small class="text-dark-gray px-3 py-1">
                     <strong>Monday, 25 Feb</strong>
@@ -631,10 +495,256 @@
 
     
 
+    <!-- App Settings FAB -->
+    <!-- <div id="app-settings">
+        <app-settings layout-active="default" :layout-location="{
+      'default': 'index.html',
+      'fixed': 'fixed-index.html',
+      'fluid': 'fluid-index.html',
+      'mini': 'mini-index.html'
+    }"></app-settings>
+    </div> -->
+    <script>
+        var options = {
+            valueNames: [ 'name', 'born' ]
+            };
+
+            var userList = new List('users', options);
+    </script>
     @include('footer')
 
 
+    <div id="modal-large" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-large-title">Add new Program</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> <!-- // END .modal-header -->
+                <div class="modal-body">
+                <div class="col-lg-12 card-body">
+                            <form method="post" action="program-management">
+                                    @csrf
+                                  
+                                            <div class="form-row">
+                                                <div class="col-12">
+                                                    <label for="exampleInputPassword1">Program Code:</label>
+                                                    <input type="text" name="pr_code" class="form-control" id="exampleInputPassword1" placeholder="">
+                                                </div>
+                                                <div class="col-12">
+                                                     <label for="exampleInputPassword1">Program Description:</label>
+                                                    <input type="textarea" name="pr_descr" class="form-control" id="exampleInputPassword1" placeholder="">
+                                                </div>
+                                            </div>
 
+                                            <div class="form-row">
+                                                <div class="col-12 ">
+                                                     <label for="exampleInputPassword1">Department:</label>
+                                                    <input type="text" name="pr_dept" value="College of Computer Studies" class="form-control" id="exampleInputPassword1" disabled>
+                                                </div>
+                                            </div>
+                                        
+                </div> <!-- // END .modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div> <!-- // END .modal-footer -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
+
+    <div id="modal-course-sub" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-large-title">Add new course subject</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> <!-- // END .modal-header -->
+                <div class="modal-body">
+                <div class="col-lg-12 card-body">
+                                    <form method="post" action="accounts">
+                                    @csrf
+                                    <div class="form-row">
+                                                <div class="col-12 col-md-6 mb-3">
+                                                        <label for="exampleInputEmail1">ID number:</label>
+                                                        <input type="number" name="idnum" class="form-control"  placeholder="Enter your ID number">
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                <label for="select01">Account type:</label>
+                                                <select id="user_role" name="role" data-toggle="select" class="form-control">
+                                                    <option id="admin_fields" value="admin">Administrator</option>
+                                                    <option id="coord_fields" value="coordinator">Coordinator</option>
+                                                    <option id="teacher_fields" value="teacher">Teacher</option>
+                                                    <option class="stud_f" id="stud_f" value="student">Student</option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-12 col-md-4 mb-3">
+                                                    <label for="exampleInputPassword1">First Name:</label>
+                                                    <input type="text" name="fname" class="form-control" id="exampleInputPassword1" placeholder="eg. Juan">
+                                                </div>
+                                                <div class="col-12 col-md-4 mb-3">
+                                                     <label for="exampleInputPassword1">Last Name:</label>
+                                                    <input type="text" name="lname" class="form-control" id="exampleInputPassword1" placeholder="eg.. Dela Cruz">
+                                                </div>
+                                                <div class="col-12 col-md-4 mb-3">
+                                                     <label for="exampleInputPassword1">Middle Name:</label>
+                                                    <input type="text" name="mname" class="form-control" id="exampleInputPassword1" placeholder="eg.. Santos">
+                                                </div>
+                                            </div>
+
+
+                                        <div id="disp_course" class="form-group">
+                                                <label for="select01">Course: </label>
+                                                <select id="select01" name="course" data-toggle="select" class="form-control">
+                                                    <option value="dept here" selected>BSIT</option>
+                                                </select>                  
+                                        </div>
+
+                                        <div id="disp_course" class="form-group">
+                                                <label for="select01">Type: </label>
+                                                <span id="#enterhere"></span>                 
+                                        </div>
+
+                                       
+                                    
+                                </div>
+                </div> <!-- // END .modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div> <!-- // END .modal-footer -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
+
+    <div id="subjgroups" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-large-title">Manage Groups for GE 1</h5>
+                    <div class="text-left">
+                        <button type="button" class="btn btn-primary text-left"  data-toggle="modal" data-target="#modal-large" data-backdrop="false">
+                                            <i class="fa fa-plus"></i>Add Group
+                         </button>
+                    </div>                
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> <!-- // END .modal-header -->
+                <div class="modal-body">
+                <div class="col-lg-12 card-body">
+                                            <table id="BSIT" class="dtable mb-0 thead-border-top-0">
+                                                <thead  class="card-header__title flex m-0">
+                                                    <tr>
+                                                    <th scope="col">COURSE NO</th>
+                                                    <th scope="col">GROUP</th>
+                                                    <th scope="col">TERM</th>
+                                                    <th scope="col">TEACHER</th>
+                                                    <th scope="col">ENROLLEES</th>
+                                                    <th scope="col">ACTION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <th scope="row">GE 1</th>
+                                                    <td>1</td>
+                                                    <td>1st sememester 2022-2023</td>
+                                                    <td>PETRA MAHALIMUYAK</td>
+                                                    <td>0/30</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#editGroup" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">GE 2</th>
+                                                    <td>2</td>
+                                                    <td>1st sememester 2022-2023</td>
+                                                    <td>JAKE FORBES</td>
+                                                    <td>0/30</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th scope="row">AE 2</th>
+                                                    <td>1</td>
+                                                    <td>1st sememester 2022-2023</td>
+                                                    <td>DANIELLE MULACH</td>
+                                                    <td>0/30</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#" data-backdrop="false">
+                                                        <i class="material-icons">settings</i>
+                                                        </button>
+                                                    </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                </div> <!-- // END .modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+               
+                </div> <!-- // END .modal-footer -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
+
+    <div id="editGroup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-large-title">Edit G1 GROUP 1</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> <!-- // END .modal-header -->
+                <div class="modal-body">
+                <div class="col-lg-12 card-body">
+                                    <form method="post" action="accounts">
+                                    @csrf
+
+
+                                        <div id="teacher" class="form-group">
+                                                <label for="select01">TEACHER: </label>
+                                                <select id="select01" name="course" data-toggle="select" class="form-control">
+                                                    <option value="dept here" selected>ERIC MANANSALA</option>
+                                                    <option value="dept here" selected>DANIELLE MULACH</option>
+                                                </select>                  
+                                        </div>
+
+                                        <div id="enrollees" class="form-group">
+                                                <label for="select01">ENROLLEES: </label>
+                                                <input type="number" name="enrollees" class="form-control"  placeholder="Enter your ID number">               
+                                        </div>
+
+                                       
+                                    
+                                </div>
+                </div> <!-- // END .modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div> <!-- // END .modal-footer -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
 </body>
+<script>
+          var selected_role = $("#user_role").val();
+      $("#enterhere").innerHTML = selected_role;
 
+</script>
 </html>
